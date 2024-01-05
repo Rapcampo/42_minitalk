@@ -10,4 +10,23 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef MINITALK_H
+# define MINITALK_H
+
+//libraries
+# include <stdlib.h>
+# include <unistd.h>
+# include <signal.h>
+# include <sys/types.h>
+# include "libft/libft.h"
+
+//functions client
+
+void send_bits(int pid, char *str);
+
+//functions server
+
+static void print_pid(void);
+
+#endif 
 
