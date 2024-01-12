@@ -12,38 +12,46 @@
 
 #include "minitalk.h"
 
-void send_bits(int pid, char *str)
+void send_bits(int pid, char c)
 {
 	int	i;
-	int pos;
 	unsigned char temp;
 
-	i = 0;
+	i = -1;
 	temp = 0;
-	pos = 0;
-	while (str[pos])
+	while (++i < 8)
 	{
-		while (i < 8)
-		{
-			temp = (str[pos] >> i & 1);
-			if (temp == 1)
-				kill(pid, SIGUSR1);
-				//write(1, "1", 1);
-			else
-				kill(pid, SIGUSR2);
-				//write(1, "0", 1);
-			i++;
-			usleep(100);
-		}
-		i = 0;
-		pos++;
+		temp = (c >> i & 1);
+		if (temp == 1)
+			kill(pid, SIGUSR1);
+		else
+			kill(pid, SIGUSR2);
+		usleep(100);
 	}
 }
 
+
 int main (int argc, char **argv)
 {
-	if (argc != 3)
-		return (1);
-	send_bits(ft_atoi(argv[1]), argv[2]);
+	pid_t pid;
+	int i;
+
+	i = 0;
+	if (argc == 3)
+	{
+		pid = ft_atoi(argv[1]);
+		while (argv[2][i])
+		{
+			send_bits(pid, argv[2][i]);
+			i++;
+		}
+	}
+	else
+	{
+		(void)argc;
+		write (1, "\e[91m\e[5mWrong Format!!!\e[0m\n", 30);
+		write (1, "\e[4mPlease input pid and your message!\e[0m\n", 44);
+		exit(EXIT_FAILURE);
+	}
 	return (0);
 }

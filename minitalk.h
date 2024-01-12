@@ -22,7 +22,7 @@
 
 //functions client
 
-void send_bits(int pid, char *str);
+void send_bits(int pid, char c);
 
 //functions server
 
