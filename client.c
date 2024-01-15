@@ -49,7 +49,7 @@ int main (int argc, char **argv)
 	else
 	{
 		(void)argc;
-		write (1, "\e[91m\e[5mWrong Format!!!\e[0m\n", 30);
+		write (1, "\e[5;91mWrong Format!!!\e[0m\n", 28);
 		write (1, "\e[4mPlease input pid and your message!\e[0m\n", 44);
 		exit(EXIT_FAILURE);
 	}

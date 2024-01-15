@@ -12,10 +12,27 @@
 
 #include "minitalk.h"
 
+void	flood_string(int bits)
+{
+	unsigned char letter;
+	static char *message = NULL;
+
+	letter = bits;
+	if (letter == '\0')
+	{
+		write(1, message, ft_strlen((char *)message));
+		free(message);
+		message = NULL;
+	}
+	else 
+		message = ft_strjoin((char *)message, ft_itoa(letter));
+}
+
 void	handle_signals(int sig)
 {
 	static int	i;
 	static unsigned char bits;
+	char *buffer;
 
 	if (sig == SIGUSR1)
 	{
@@ -24,7 +41,8 @@ void	handle_signals(int sig)
 	i++;
 	if (i == 8)
 	{
-		write (1, &bits, 1);
+		flood_string(bits);
+//		write (1, &bits, 1);
 		i = 0;
 		bits = 0;
 	}
@@ -46,7 +64,7 @@ static void	print_pid(void)
 	pid = ft_itoa(getpid());
 	write(1, "\e[31mServer PID: ", 18);
 	write(1, pid, ft_strlen(pid));
-	write(1, "\e[0m\n\e[95mWaiting for message...\e[0m\n", 38);
+	write(1, "\e[0;5;95m\nWaiting for message...\e[0m\n", 38);
 	free(pid);
 }
 
