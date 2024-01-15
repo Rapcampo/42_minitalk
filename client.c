@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   miniclient.c                                       :+:      :+:    :+:   */
+/*   client.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rapcampo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 13:38:08 by rapcampo          #+#    #+#             */
-/*   Updated: 2023/11/23 13:38:10 by rapcampo         ###   ########.fr       */
+/*   Updated: 2024/01/15 11:48:47 by rapcampo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-void send_bits(int pid, char c)
+void	send_bits(int pid, char c)
 {
-	int	i;
-	unsigned char temp;
+	int				i;
+	unsigned char	temp;
 
 	i = -1;
 	temp = 0;
@@ -30,11 +30,10 @@ void send_bits(int pid, char c)
 	}
 }
 
-
-int main (int argc, char **argv)
+int	main(int argc, char **argv)
 {
-	pid_t pid;
-	int i;
+	pid_t	pid;
+	int		i;
 
 	i = 0;
 	if (argc == 3)

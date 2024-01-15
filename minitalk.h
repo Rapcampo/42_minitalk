@@ -20,13 +20,6 @@
 # include <sys/types.h>
 # include "libft/libft.h"
 
-//functions client
-
-void send_bits(int pid, char c);
-
-//functions server
-
-static void print_pid(void);
+//functions utils
 
 #endif 
-

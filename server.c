@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   miniserver.c                                       :+:      :+:    :+:   */
+/*   server.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rapcampo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 13:38:23 by rapcampo          #+#    #+#             */
-/*   Updated: 2023/11/23 13:38:24 by rapcampo         ###   ########.fr       */
+/*   Updated: 2024/01/15 11:49:51 by rapcampo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	flood_string(int bits)
 {
-	unsigned char letter;
-	static char *message = NULL;
+	char		letter;
+	static char	*message = NULL;
 
 	letter = bits;
 	if (letter == '\0')
@@ -25,14 +25,14 @@ void	flood_string(int bits)
 		message = NULL;
 	}
 	else 
-		message = ft_strjoin((char *)message, ft_itoa(letter));
+		message = ft_strjoin(message, ft_itoa(letter));
 }
 
 void	handle_signals(int sig)
 {
-	static int	i;
-	static unsigned char bits;
-	char *buffer;
+	static int					i;
+	static unsigned char		bits;
+	char						*buffer;
 
 	if (sig == SIGUSR1)
 	{
@@ -48,7 +48,7 @@ void	handle_signals(int sig)
 	}
 }
 
-void	handle_SIGINT(int sig)
+void	handle_sigint(int sig)
 {
 	if (sig == SIGINT)
 	{
@@ -59,7 +59,7 @@ void	handle_SIGINT(int sig)
 
 static void	print_pid(void)
 {
-	char *pid;
+	char	*pid;
 
 	pid = ft_itoa(getpid());
 	write(1, "\e[31mServer PID: ", 18);
@@ -68,18 +68,18 @@ static void	print_pid(void)
 	free(pid);
 }
 
-int main (int argc, char **argv)
+int	main(int argc, char **argv)
 {
-	(void)argv;
+	(void) argv;
 	print_pid();
 	while (argc == 1)
 	{
 		signal(SIGUSR1, handle_signals);
 		signal(SIGUSR2, handle_signals);
-		signal(SIGINT, handle_SIGINT);
-		if (signal(SIGUSR1, handle_signals)== SIG_ERR)
+		signal(SIGINT, handle_sigint);
+		if (signal(SIGUSR1, handle_signals) == SIG_ERR)
 			write(1, "\e[91mhandler could not be resolved\e[0m", 39);
-		if (signal(SIGUSR2, handle_signals)== SIG_ERR)
+		if (signal(SIGUSR2, handle_signals) == SIG_ERR)
 			write(1, "\e[91mhandler could not be resolved\e[0m", 39);
 		pause();
 	}
