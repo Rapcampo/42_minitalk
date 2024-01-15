@@ -22,7 +22,7 @@
 
 //functions utils
 
-unsigned char	*ft_unstrjoin(unsigned char const *to_print, unsigned char c);
-int	ft_unstrlen(unsigned char const *str);
+unsigned char	*ft_unstrjoin(unsigned char *to_print, unsigned char c);
+int	ft_unstrlen(unsigned char *str);
 
 #endif 

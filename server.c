@@ -12,36 +12,35 @@
 
 #include "minitalk.h"
 
+unsigned char	*g_message = NULL;
+
 void	flood_string(unsigned char bits)
 {
-	static unsigned char	*message = NULL;
-	char letter;
-	letter = bits;
-	if (letter == '\0')
+	if (bits == 0x00)
 	{
-		write(1, message, ft_strlen((char *)message));
-		free(message);
-		message = NULL;
+		write(1, g_message, ft_unstrlen(g_message));
+		free(g_message);
+		g_message = NULL;
 	}
-	else 
-		message = ft_strjoin(message, ((char *)ft_itoa(letter)));
+	else
+	{
+		g_message = ft_unstrjoin(g_message, bits);
+	}
 }
 
 void	handle_signals(int sig)
 {
 	static int					i;
 	static unsigned char		bits;
-	char						*buffer;
 
 	if (sig == SIGUSR1)
 	{
 		bits |= (1 << i);
 	}
 	i++;
-	if (i == 8)
+	if (i == 0x08)
 	{
 		flood_string(bits);
-//		write (1, &bits, 1);
 		i = 0;
 		bits = 0;
 	}
@@ -51,6 +50,8 @@ void	handle_sigint(int sig)
 {
 	if (sig == SIGINT)
 	{
+		if (g_message)
+			free(g_message);
 		write(1, "\n\n\e[92mServer has been shutdown successfuly!\e[0m\n", 50);
 		exit(EXIT_SUCCESS);
 	}

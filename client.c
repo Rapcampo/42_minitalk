@@ -30,6 +30,17 @@ void	send_bits(int pid, char c)
 	}
 }
 
+void	send_null(int pid, char *to_print)
+{
+	int	i;
+	int size;
+
+	i = 0;
+	size = ft_strlen(to_print);
+	while (i <= size)
+		send_bits(pid, to_print[i++]);
+}
+
 int	main(int argc, char **argv)
 {
 	pid_t	pid;
@@ -44,6 +55,8 @@ int	main(int argc, char **argv)
 			send_bits(pid, argv[2][i]);
 			i++;
 		}
+		send_bits(pid, argv[2][++i]);
+		//send_null(pid, argv[2]);
 	}
 	else
 	{

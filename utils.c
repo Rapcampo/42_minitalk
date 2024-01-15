@@ -12,34 +12,32 @@
 
 #include "minitalk.h"
 
-int	ft_unstrlen(unsigned char const *str)
+int	ft_unstrlen(unsigned char *str)
 {
-	int	i;
+	size_t	i;
 
-	i = -1;
-	while (str[++i])
-		;
+	i = 0;
+	while (str[i])
+		i++;
 	return (i);
 }
 
-unsigned char	*ft_unstrjoin(unsigned char const *to_print, unsigned char c)
+unsigned char	*ft_unstrjoin(unsigned char *to_print, unsigned char c)
 {
-	size_t		i;
-	size_t		j;
 	unsigned char	*str;
-	size_t		size;
 
-	i = 0;
-	j = 0;
-	size = 0;
+	auto size_t i = 0;
+	auto size_t j = 0;
+	auto size_t size = 0;
 	if (to_print)
 		size = ft_unstrlen(to_print) + 1;
-	str = malloc(sizeof(unsigned char *) * size + 1);
+	//size++;
+	str = malloc(sizeof(unsigned char *) * (size + 1));
 	if (str == NULL)
 		return (NULL);
 	while (str[j])
 		j++;
-	if (to_print)	
+	if (to_print)
 	{
 		while (to_print[i])
 			str[j++] = to_print[i++];
@@ -47,5 +45,6 @@ unsigned char	*ft_unstrjoin(unsigned char const *to_print, unsigned char c)
 	str[j] = c;
 	j++;
 	str[j] = '\0';
+	free(to_print);
 	return (str);
 }
