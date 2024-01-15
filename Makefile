@@ -1,7 +1,7 @@
 NAME = libft.a
 CC = cc
 #CFLAGS = -Wall -Wextra -Werror
-SRCS = client.c server.c
+SRCS = client.c server.c utils.c
 OBJS = $(SRCS:.c=.O)
 BONUS_SRCS = *_bonus.c
 BONUS_OBJS = $(BONUS_SRCS:.c=.o)
@@ -20,7 +20,7 @@ client_bonus: $(BONUS_OBJS)
 	$(CC) $(CFLAGS) client_bonus.o utils_bonus.o $(LIBFT) -o client_bonus
 
 server: $(OBJS)
-	$(CC) $(CFLAGS) server.o $(LIBFT) -o server
+	$(CC) $(CFLAGS) server.o utils.o $(LIBFT) -o server
 
 server_bonus: $(BONUS_OBJS)
 	$(CC) $(CFLAGS) server_bonus.o $(LIBFT) -o server_bonus
