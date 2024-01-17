@@ -15,13 +15,10 @@
 void	send_bits(int pid, unsigned char c)
 {
 	int				i;
-//	unsigned char	temp;
 
 	i = -1;
-//	temp = 0;
 	while (++i < 8)
 	{
-	//	temp = (c >> i & 1);
 		if ((c >> i & 1) != 0)
 			
 			kill(pid, SIGUSR1);
@@ -30,17 +27,6 @@ void	send_bits(int pid, unsigned char c)
 		usleep(100);
 	}
 }
-
-/*void	send_null(int pid, char *to_print)
-{
-	int	i;
-	int size;
-
-	i = 0;
-	size = ft_strlen(to_print);
-	while (i <= size)
-		send_bits(pid, (unsigned char)to_print[i++]);
-}*/
 
 int	main(int argc, char **argv)
 {
@@ -52,12 +38,8 @@ int	main(int argc, char **argv)
 	{
 		pid = ft_atoi(argv[1]);
 	while (argv[2][++i])
-		{
 			send_bits(pid, argv[2][i]);
-	//		i++;
-		}
 		send_bits(pid, 0x00);
-	//	send_null(pid, argv[2]);
 	}
 	else
 	{

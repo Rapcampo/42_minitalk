@@ -31,7 +31,6 @@ unsigned char	*ft_unstrjoin(unsigned char *to_print, unsigned char c)
 	auto size_t size = 0;
 	if (to_print)
 		size = ft_unstrlen(to_print);
-	//size++;
 	str = malloc(sizeof(unsigned char *) * size + 2);
 	if (str == NULL)
 		return (NULL);
@@ -40,8 +39,7 @@ unsigned char	*ft_unstrjoin(unsigned char *to_print, unsigned char c)
 		while (to_print[i])
 			str[j++] = to_print[i++];
 	}
-	str[j] = c;
-	j++;
+	str[j++] = c;
 	str[j] = '\0';
 	free(to_print);
 	return (str);

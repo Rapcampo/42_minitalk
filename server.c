@@ -19,6 +19,7 @@ void	flood_string(unsigned char bits)
 	if (bits == 0x00)
 	{
 		write(1, g_message, ft_unstrlen(g_message));
+		write(1, "\n", 1);
 		free(g_message);
 		g_message = NULL;
 	}
