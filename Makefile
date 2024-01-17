@@ -1,8 +1,8 @@
 NAME = libft.a
 CC = cc
-#CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror
 SRCS = client.c server.c utils.c
-OBJS = $(SRCS:.c=.O)
+OBJS = $(SRCS:.c=.o)
 BONUS_SRCS = *_bonus.c
 BONUS_OBJS = $(BONUS_SRCS:.c=.o)
 RM = rm -rf

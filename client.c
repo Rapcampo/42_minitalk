@@ -15,14 +15,14 @@
 void	send_bits(int pid, char c)
 {
 	int				i;
-	unsigned char	temp;
+//	unsigned char	temp;
 
 	i = -1;
-	temp = 0;
+//	temp = 0;
 	while (++i < 8)
 	{
-		temp = (c >> i & 1);
-		if (temp == 1)
+	//	temp = (c >> i & 1);
+		if ((c >> i & 1) == 1)
 			kill(pid, SIGUSR1);
 		else
 			kill(pid, SIGUSR2);
@@ -55,7 +55,8 @@ int	main(int argc, char **argv)
 			send_bits(pid, argv[2][i]);
 			i++;
 		}
-		send_bits(pid, argv[2][++i]);
+		send_bits(pid, 0x00);
+		//i = 0;
 		//send_null(pid, argv[2]);
 	}
 	else

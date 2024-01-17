@@ -17,7 +17,6 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <signal.h>
-# include <sys/types.h>
 # include "libft/libft.h"
 
 //functions utils
