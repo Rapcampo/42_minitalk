@@ -12,7 +12,7 @@
 
 #include "minitalk.h"
 
-void	send_bits(int pid, char c)
+void	send_bits(int pid, unsigned char c)
 {
 	int				i;
 //	unsigned char	temp;
@@ -22,7 +22,8 @@ void	send_bits(int pid, char c)
 	while (++i < 8)
 	{
 	//	temp = (c >> i & 1);
-		if ((c >> i & 1) == 1)
+		if ((c >> i & 1) != 0)
+			
 			kill(pid, SIGUSR1);
 		else
 			kill(pid, SIGUSR2);
@@ -30,7 +31,7 @@ void	send_bits(int pid, char c)
 	}
 }
 
-void	send_null(int pid, char *to_print)
+/*void	send_null(int pid, char *to_print)
 {
 	int	i;
 	int size;
@@ -38,26 +39,25 @@ void	send_null(int pid, char *to_print)
 	i = 0;
 	size = ft_strlen(to_print);
 	while (i <= size)
-		send_bits(pid, to_print[i++]);
-}
+		send_bits(pid, (unsigned char)to_print[i++]);
+}*/
 
 int	main(int argc, char **argv)
 {
 	pid_t	pid;
 	int		i;
 
-	i = 0;
+	i = -1;
 	if (argc == 3)
 	{
 		pid = ft_atoi(argv[1]);
-		while (argv[2][i])
+	while (argv[2][++i])
 		{
 			send_bits(pid, argv[2][i]);
-			i++;
+	//		i++;
 		}
 		send_bits(pid, 0x00);
-		//i = 0;
-		//send_null(pid, argv[2]);
+	//	send_null(pid, argv[2]);
 	}
 	else
 	{

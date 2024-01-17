@@ -12,7 +12,7 @@
 
 #include "minitalk.h"
 
-unsigned char	*g_message;
+unsigned char	*g_message = NULL;
 
 void	flood_string(unsigned char bits)
 {
@@ -28,16 +28,16 @@ void	flood_string(unsigned char bits)
 
 void	handle_signals(int sig)
 {
-	static int					i;
+	static int					byte;
 	static unsigned char		bits;
 
 	if (sig == SIGUSR1)
-		bits |= (1 << i);
-	i++;
-	if (i == 0x08)
+		bits |= (0x01 << byte);
+	byte++;
+	if (byte == 0x08)
 	{
 		flood_string(bits);
-		i = 0;
+		byte = 0;
 		bits = 0;
 	}
 }

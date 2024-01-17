@@ -16,9 +16,9 @@ int	ft_unstrlen(unsigned char *str)
 {
 	size_t	i;
 
-	i = 0;
-	while (str[i])
-		i++;
+	i = -1;
+	while (str[++i])
+		;
 	return (i);
 }
 
@@ -30,13 +30,11 @@ unsigned char	*ft_unstrjoin(unsigned char *to_print, unsigned char c)
 	auto size_t j = 0;
 	auto size_t size = 0;
 	if (to_print)
-		size = ft_unstrlen(to_print) + 1;
+		size = ft_unstrlen(to_print);
 	//size++;
-	str = malloc(sizeof(unsigned char *) * (size + 1));
+	str = malloc(sizeof(unsigned char *) * size + 2);
 	if (str == NULL)
 		return (NULL);
-	while (str[j])
-		j++;
 	if (to_print)
 	{
 		while (to_print[i])
