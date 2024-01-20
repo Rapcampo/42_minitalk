@@ -23,7 +23,7 @@ server: $(OBJS)
 	$(CC) $(CFLAGS) server.o utils.o $(LIBFT) -o server
 
 server_bonus: $(BONUS_OBJS)
-	$(CC) $(CFLAGS) server_bonus.o $(LIBFT) -o server_bonus
+	$(CC) $(CFLAGS) server_bonus.o utils_bonus.o $(LIBFT) -o server_bonus
 
 $(OBJS): $(SRCS)
 	make -C libft -s

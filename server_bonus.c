@@ -1,43 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   server.c                                           :+:      :+:    :+:   */
+/*   server_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rapcampo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 13:38:23 by rapcampo          #+#    #+#             */
-/*   Updated: 2024/01/15 11:49:51 by rapcampo         ###   ########.fr       */
+/*   Updated: 2024/01/20 20:24:35 by rapcampo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minitalk.h"
+#include "minitalk_bonus.h"
 
 unsigned char	*g_message = NULL;
 
-void	flood_string(unsigned char bits)
+void	flood_string(unsigned char bits, siginfo_t *info)
 {
 	if (bits == 0x00)
 	{
 		write(1, g_message, ft_unstrlen(g_message));
 		write(1, "\n", 1);
 		free(g_message);
+		kill(info->si_pid, SIGUSR1);
 		g_message = NULL;
 	}
 	else
 		g_message = ft_unstrjoin(g_message, bits);
 }
 
-void	handle_signals(int sig)
+void	handle_signals(int sig, siginfo_t *info, void *s)
 {
 	static int					byte;
 	static unsigned char		bits;
 
+	(void)s;
 	if (sig == SIGUSR1)
 		bits |= (0x01 << byte);
 	byte++;
 	if (byte == 0x08)
 	{
-		flood_string(bits);
+		flood_string(bits, info);
 		byte = 0;
 		bits = 0;
 	}
@@ -67,16 +69,19 @@ static void	print_pid(void)
 
 int	main(int argc, char **argv)
 {
+	struct sigaction	sa;
+
+	sa.sa_sigaction = &handle_signals;
+	sigemptyset(&sa.sa_mask);
 	(void) argv;
+	sa.sa_flags = SA_SIGINFO;
 	print_pid();
 	while (argc == 1)
 	{
-		signal(SIGUSR1, handle_signals);
-		signal(SIGUSR2, handle_signals);
 		signal(SIGINT, handle_sigint);
-		if (signal(SIGUSR1, handle_signals) == SIG_ERR)
+		if (sigaction(SIGUSR1, &sa, NULL) == -1)
 			write(1, "\e[91mhandler could not be resolved\e[0m", 39);
-		if (signal(SIGUSR2, handle_signals) == SIG_ERR)
+		if (sigaction(SIGUSR2, &sa, NULL) == -1)
 			write(1, "\e[91mhandler could not be resolved\e[0m", 39);
 		pause();
 	}
