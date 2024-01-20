@@ -14,13 +14,12 @@
 
 void	send_bits(int pid, unsigned char c)
 {
-	int				i;
+	int	i;
 
 	i = -1;
 	while (++i < 8)
 	{
 		if ((c >> i & 1) != 0)
-			
 			kill(pid, SIGUSR1);
 		else
 			kill(pid, SIGUSR2);
@@ -37,7 +36,7 @@ int	main(int argc, char **argv)
 	if (argc == 3)
 	{
 		pid = ft_atoi(argv[1]);
-	while (argv[2][++i])
+		while (argv[2][++i])
 			send_bits(pid, argv[2][i]);
 		send_bits(pid, 0x00);
 	}
