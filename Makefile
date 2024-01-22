@@ -1,4 +1,15 @@
-NAME = libft.a
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: rapcampo <marvin@42.fr>                    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/01/22 16:34:42 by rapcampo          #+#    #+#              #
+#    Updated: 2024/01/22 16:50:24 by rapcampo         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
 SRCS = client.c server.c utils.c
@@ -6,7 +17,7 @@ OBJS = $(SRCS:.c=.o)
 BONUS_SRCS = *_bonus.c
 BONUS_OBJS = $(BONUS_SRCS:.c=.o)
 RM = rm -rf
-AR = ar -rcs
+AR = ar -rc
 LIBFT = -L libft -l ft
 
 all: client server
