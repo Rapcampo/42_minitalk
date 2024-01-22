@@ -12,19 +12,6 @@
 
 #include "minitalk_bonus.h"
 
-/*void	feedback(int signal)
-{
-	if (signal == SIGUSR1)
-	{
-		write(1, "\e[32m\n\nMessage has been received correctly\n\e[0m", 500);
-	}
-	else if (signal == SIGINT)
-	{
-		write(1, "\n\n\e[92mClient has been shutdown successfuly!\e[0m\n", 50);
-		exit(EXIT_SUCCESS);
-	}
-}*/
-
 void	send_bits(int pid, unsigned char c)
 {
 	int	i;
@@ -36,7 +23,16 @@ void	send_bits(int pid, unsigned char c)
 			kill(pid, SIGUSR1);
 		else
 			kill(pid, SIGUSR2);
-		usleep(100);
+		usleep(150);
+	}
+}
+
+static void	ft_feedback(int sig)
+{
+	if (sig == SIGUSR1)
+	{
+		write(1, "\e[32m\nMessage has been received correctly!\n\n\e[0m", 49);
+		exit(EXIT_SUCCESS);
 	}
 }
 
@@ -46,6 +42,7 @@ int	main(int argc, char **argv)
 	int		i;
 
 	i = -1;
+	signal(SIGUSR1, ft_feedback);
 	if (argc == 3)
 	{
 		pid = ft_atoi(argv[1]);
@@ -55,16 +52,9 @@ int	main(int argc, char **argv)
 	}
 	else
 	{
-		(void)argc;
 		write (1, "\e[5;91mWrong Format!!!\e[0m\n", 28);
 		write (1, "\e[4mPlease input pid and your message!\e[0m\n", 44);
 		exit(EXIT_FAILURE);
 	}
-/*	while(1)
-	{
-		signal(SIGUSR1, feedback);
-		signal(SIGINT, feedback);
-		pause();
-	}*/
 	return (0);
 }
