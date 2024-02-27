@@ -20,6 +20,7 @@ This project is an introduction to variadic functions in C and how they work. As
  - Files: Makefile, *.h, */*.h, *.c, */*.c
  - Makefile: NAME, all, clean, fclean, re.
  - External functions:
+  ```
   ◦ write 
   ◦ ft_printf and any equivalent YOU coded
   ◦ signal
@@ -34,6 +35,7 @@ This project is an introduction to variadic functions in C and how they work. As
   ◦ sleep
   ◦ usleep
   ◦ exit
+```
    
 ## Technical considerations  
  
